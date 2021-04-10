@@ -3,5 +3,27 @@
 {% block content %}
 
 <h2>Products</h2>
+<div>
+    <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()" style="margin: 1rem 0">Add new product</button>
+</div>
+
+{% for p in products %}  <!-- products viittaa siis views.py mydictionary = {'products': productlist} ,joka taas on productlist = Product.objects.all() # haetaan kaikki -->
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h3 class="card-title">{{p.productname}} </h3>
+        <h5 class="card-text">Supplier: {{p.companyname}}</h5>
+        <p class="card-text">packagesize: {{p.packagesize}} | unitprice: {{p.unitprice}}</p>
+        <p class="card-text" style="color: green;">Units in stock: {{p.unitsinstock}}</p>
+        <a href="/edit-product-get/{{p.id}}/" class="btn btn-primary">Edit</a>
+        <a href="/delete-product/{{p.id}}/" class="btn btn-danger">Delete</a>
+        <a href="#" class="btn btn-secondary">Productd of {{p.companyname}}</a>
+    </div>
+</div>
+
+{% empty %}
+<h4>No products saved in a database.</h4>
+
+{%endfor%}
 
 {% endblock %}

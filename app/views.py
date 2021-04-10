@@ -6,10 +6,10 @@ def landingview(request):
 
 def supplierlistview(request):
     supplierlist = Supplier.objects.all() # haetaan kaikki 
-    context = {'suppliers': supplierlist}
-    return render (request, "suppliers.html", context)
+    mydictionary = {'suppliers': supplierlist} # Tähän dictionaryn 'suppliers' viitataan suppliers.html for-loopissa
+    return render (request, "suppliers.html", context=mydictionary)
 
 def productlistview(request):
     productlist = Product.objects.all() # haetaan kaikki
-    context = {'products': productlist}
-    return render (request, "products.html", context)
+    mydictionary = {'products': productlist} # Tähän dictionaryn 'products' viitataan products.html for-loopissa
+    return render (request, "products.html", context=mydictionary)

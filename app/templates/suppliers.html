@@ -3,5 +3,26 @@
 {% block content %}
 
 <h2>Suppliers</h2>
+<div>
+    <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()" style="margin: 1rem 0">Add new supplier</button>
+</div>
+
+{% for s in suppliers %}  <!-- suppliers viittaa siis views.py mydictionary = {'suppliers': supplierlist} ,joka taas on supplierlist = Supplier.objects.all() # haetaan kaikki  -->
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{s.companyname}}</h4>
+        <p class="card-text">{{s.contactname}} | phone: {{s.phone}} | email: {{s.email}} </p>
+        <p class="card-text">Address: {{s.address}} | Country: {{s.country}}</p>
+        <a href="#" class="btn btn-primary">Edit</a> <a href="/delete-supplier/{{s.id}}/"
+            class="btn btn-danger">Delete</a>
+        <a href="#" class="btn btn-secondary">{{s.companyname}} Products</a>
+
+    </div>
+</div>
+{% empty %}
+<h4>No suppliers saved in a database.</h4>
+
+{%endfor%}
 
 {% endblock %}
