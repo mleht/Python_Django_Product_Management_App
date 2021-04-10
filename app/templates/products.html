@@ -7,6 +7,8 @@
     <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()" style="margin: 1rem 0">Add new product</button>
 </div>
 
+<div id="lisayskentta" style="margin: 1rem 0"></div>
+
 {% for p in products %}  <!-- products viittaa siis views.py mydictionary = {'products': productlist} ,joka taas on productlist = Product.objects.all() # haetaan kaikki -->
 
 <div class="card" style="width: 50rem;">
@@ -17,7 +19,7 @@
         <p class="card-text" style="color: green;">Units in stock: {{p.unitsinstock}}</p>
         <a href="/edit-product-get/{{p.id}}/" class="btn btn-primary">Edit</a>
         <a href="/delete-product/{{p.id}}/" class="btn btn-danger">Delete</a>
-        <a href="#" class="btn btn-secondary">Productd of {{p.companyname}}</a>
+        <a href="#" class="btn btn-secondary">Products of {{p.companyname}}</a>
     </div>
 </div>
 
@@ -25,5 +27,38 @@
 <h4>No products saved in a database.</h4>
 
 {%endfor%}
+
+<script>
+
+    let tuoteformi = `
+    <h2>Please fill in the form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-product/">
+
+                {%csrf_token %}
+                <input class="card-text" class="card-text" type="text" placeholder="Product name" name="productname" required>
+                <input class="card-text" type="text" placeholder="Package size" name="packagesize">
+                <input class="card-text" type="number" placeholder="Unitprice" name="unitprice" min="0.00" step="0.01" required>
+                <input class="card-text" type="number" placeholder="Units in stock" name="unitsinstock" min="0" required>
+                <input class="card-text" type="text" placeholder="Suppliers name" name="companyname">
+                <div style="margin: 1rem 0">
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+                </div>
+            </form>
+        </div>
+    </div>`
+
+    function showaddform() {
+        document.getElementById("lisayskentta").innerHTML = tuoteformi
+    }
+
+    function hideaddform() {
+        document.getElementById("lisayskentta").innerHTML = ""
+    }
+
+</script>
 
 {% endblock %}
