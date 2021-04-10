@@ -23,6 +23,12 @@ def addsupplier(request):
     # HTTP_REFERER – The referring page, (if any)
     # HttpRequest.META: A dictionary containing all available HTTP headers : https://docs.djangoproject.com/en/3.1/ref/request-response/
 
+
+def deletesupplier(request,id):
+    Supplier.objects.filter(id = id).delete() # deletoidaan se supplier, jonka id on sama kuin parametrina saatu
+    return redirect(request.META['HTTP_REFERER'])
+
+
 def productlistview(request):
     productlist = Product.objects.all() # haetaan kaikki
     mydictionary = {'products': productlist} # Tähän dictionaryn 'products' viitataan products.html for-loopissa
@@ -40,3 +46,7 @@ def addproduct(request):
     # request.POST  Only handles form data.  Only works for 'POST' method. - https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
     # HTTP_REFERER – The referring page, (if any)
     # HttpRequest.META: A dictionary containing all available HTTP headers : https://docs.djangoproject.com/en/3.1/ref/request-response/
+
+def deleteproduct(request,id):
+    Product.objects.filter(id = id).delete() #deletoidaan se tuote, jonka id on sama kuin parametrina saatu id
+    return redirect(request.META['HTTP_REFERER'])
