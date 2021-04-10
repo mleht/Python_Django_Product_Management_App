@@ -25,7 +25,7 @@ def addsupplier(request):
 
 
 def deletesupplier(request,id):
-    Supplier.objects.filter(id = id).delete() # deletoidaan se supplier, jonka id on sama kuin parametrina saatu
+    Supplier.objects.filter(id = id).delete() # deletoidaan se supplier, jonka id on sama kuin parametrina saatu (jälkimmäinen on parametri)
     return redirect(request.META['HTTP_REFERER'])
 
 
@@ -48,5 +48,20 @@ def addproduct(request):
     # HttpRequest.META: A dictionary containing all available HTTP headers : https://docs.djangoproject.com/en/3.1/ref/request-response/
 
 def deleteproduct(request,id):
-    Product.objects.filter(id = id).delete() #deletoidaan se tuote, jonka id on sama kuin parametrina saatu id
+    Product.objects.filter(id = id).delete() #deletoidaan se tuote, jonka id on sama kuin parametrina saatu id (jälkimmäinen on parametri)
     return redirect(request.META['HTTP_REFERER'])
+
+def edit_product_get(request, id):
+    product = Product.objects.filter(id = id)
+    mydictionary = {'product': product}
+    return render (request,"edit_product.html", context=mydictionary)
+
+def edit_product_post(request, id):
+    item = Product.objects.get(id = id)
+    item.productname = request.POST['productname']
+    item.packagesize = request.POST['packagesize']
+    item.unitprice = request.POST['unitprice']
+    item.unitsinstock = request.POST['unitsinstock']
+    item.companyname = request.POST['companyname']
+    item.save()
+    return redirect(productlistview)

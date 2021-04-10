@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+
+{% block title %}Edit product{% endblock %}
+
+{% block content %}
+
+{% for p in product %}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+        <h5>Editing: {{p.productname}}</h5>
+        <div class="card-body">
+            <form method="post" action="/edit-product-post/{{p.id}}/">
+
+                {%csrf_token %}
+
+                <label>Name</label>
+                <div class="form-group">
+                    <input type="text" name="productname" value="{{p.productname}}" required>
+                </div>
+
+                <label>Price</label>
+                <div class="form-group">
+                    <input type="number" name="unitprice" value="{{p.unitprice}}" min="0.00" step="0.01" required>
+                </div>
+
+                <label>Package size</label>
+                <div class="form-group">
+                    <input type="text" name="packagesize" value="{{p.packagesize}}">
+                </div>
+
+                <label>Units in stock</label>
+                <div class="form-group">
+                    <input type="number" name="unitsinstock" value="{{p.unitsinstock}}" min="0" required>
+                </div>
+
+                <label>Supplier</label>
+                <div class="form-group">
+                    <input type="text" name="companyname" value="{{p.companyname}}">
+                </div>
+
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+
+                <input type="button" onclick="window.location.href='/products'" id="hide-btn"
+                    class="btn btn-secondary btn-sm" value="Cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}
