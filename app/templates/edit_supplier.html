@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block title %}Edit supplier{% endblock %}
+
+{% block content %}
+
+{% for s in supplier %} <!-- supplier tulee views.py def edit_supplier_get metodin mydictionary = {'supplier': supplier}, joka taas tulee saman metodin supplier = Supplier.objects.filter(id = id) ja id on saatu edit napilta parametrina -->
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+        <h5>Editing: {{s.companyname}}</h5>
+        <div class="card-body">
+            <form method="post" action="/edit-supplier-post/{{s.id}}/">
+
+                {%csrf_token %}
+
+                <label>Company name</label>
+                <div class="form-group">
+                    <input type="text" name="companyname" value="{{s.companyname}}" required>
+                </div>
+
+                <label>Contact person</label>
+                <div class="form-group">
+                    <input type="text" name="contactname" value="{{s.contactname}}">
+                </div>
+
+                <label>Address</label>
+                <div class="form-group">
+                    <input type="text" name="address" value="{{s.address}}">
+                </div>
+
+                <label>Phone</label>
+                <div class="form-group">
+                    <input type="text" name="phone" value="{{s.phone}}">
+                </div>
+
+                <label>Email</label>
+                <div class="form-group">
+                    <input type="text" name="email" value="{{s.email}}">
+                </div>
+
+                <label>Country</label>
+                <div class="form-group">
+                    <input type="text" name="country" value="{{s.country}}">
+                </div>
+
+
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+
+                <input type="button" onclick="window.location.href='/suppliers'" id="hide-btn"
+                    class="btn btn-secondary btn-sm" value="Cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}

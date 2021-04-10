@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% for p in product %}
+{% for p in product %} <!-- product tulee views.py mydictionary = {'product': product}, joka tulee saman metodin product = Product.objects.filter(id = id) ja id tuli parametrina edit napilta -->
 
 <div class="card" style="width: 25rem;">
     <div class="card-header">

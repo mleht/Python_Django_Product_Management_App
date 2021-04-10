@@ -28,6 +28,22 @@ def deletesupplier(request,id):
     Supplier.objects.filter(id = id).delete() # deletoidaan se supplier, jonka id on sama kuin parametrina saatu (jälkimmäinen on parametri)
     return redirect(request.META['HTTP_REFERER'])
 
+def edit_supplier_get(request, id):
+    supplier = Supplier.objects.filter(id = id)
+    mydictionary = {'supplier': supplier}
+    return render (request,"edit_supplier.html",context=mydictionary)
+
+def edit_supplier_post(request, id):
+    item = Supplier.objects.get(id = id)
+    item.companyname = request.POST['companyname']
+    item.contactname = request.POST['contactname']
+    item.address = request.POST['address']
+    item.phone = request.POST['phone']
+    item.email = request.POST['email']
+    item.country = request.POST['country']
+    item.save()
+    return redirect(supplierlistview)
+
 
 def productlistview(request):
     productlist = Product.objects.all() # haetaan kaikki
