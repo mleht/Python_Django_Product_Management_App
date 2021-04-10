@@ -7,6 +7,8 @@
     <button id="add-btn" class="btn btn-success btn-sm" onclick="showaddform()" style="margin: 1rem 0">Add new supplier</button>
 </div>
 
+<div id="lisayskentta" style="margin: 1rem 0"></div>
+
 {% for s in suppliers %}  <!-- suppliers viittaa siis views.py mydictionary = {'suppliers': supplierlist} ,joka taas on supplierlist = Supplier.objects.all() # haetaan kaikki  -->
 
 <div class="card" style="width: 50rem;">
@@ -24,5 +26,40 @@
 <h4>No suppliers saved in a database.</h4>
 
 {%endfor%}
+
+<script>
+    let formi = `
+    <h2>Please fill in the form</h2>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-body">
+            <form method="post" action="/add-supplier/">
+    
+                {%csrf_token %}
+                
+                <input class="card-text" class="card-text" type="text" placeholder="Company name" name="companyname" required>
+                <input class="card-text" type="text" placeholder="Contact person" name="contactname">
+                <input class="card-text" type="text" placeholder="Address" name="address">
+                <input class="card-text" type="text" placeholder="Phone" name="phone">
+                <input class="card-text" type="text" placeholder="Email" name="email">
+                <input class="card-text" type="text" placeholder="Country" name="country">
+                <div style="margin: 1rem 0">
+                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
+                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+                </div>
+            </form>
+        </div>
+    </div>`
+
+
+
+    function showaddform() {
+        document.getElementById("lisayskentta").innerHTML = formi
+    }
+
+    function hideaddform() {
+        document.getElementById("lisayskentta").innerHTML = ""
+    }
+</script>
 
 {% endblock %}
