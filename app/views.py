@@ -81,3 +81,11 @@ def edit_product_post(request, id):
     item.companyname = request.POST['companyname']
     item.save()
     return redirect(productlistview)
+
+def products_by_supplier(request,id):
+    supplierObj = Supplier.objects.get(id = id)
+    company = supplierObj.companyname
+    productlist = Product.objects.all()
+    filteredproducts = productlist.filter(companyname = company)
+    mydictionary = {'products':filteredproducts}
+    return render (request,"products.html", context=mydictionary)
