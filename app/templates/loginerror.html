@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block title %}Loginerror{% endblock %}
+{% block content %}
+
+<div class="card" style="width: 25rem; margin-top: 2rem;">
+    <div class="card-header">
+        <h4>Wrong credentials</h4>
+        <div class="card-body">
+            <input type="button" onclick="window.location.href='/'" class="btn btn-secondary btn-sm" id="hide-btn" value="Back to login">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
